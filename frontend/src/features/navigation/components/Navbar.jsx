@@ -87,7 +87,7 @@ export const Navbar = ({ isProductList = false }) => {
             fontFamily: "monospace",
           }}
         >
-          CLIM75
+          DVLS
         </Typography>
         <Stack direction="row" alignItems="center" spacing={2}>
           <Tooltip title="Paramètres">

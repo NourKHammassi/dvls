@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Stack, Typography, Box, useMediaQuery, useTheme } from "@mui/material";
 import { FaCcMastercard, FaCcVisa, FaCcAmex } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { selectLoggedInUser } from "../auth/AuthSlice";
@@ -44,11 +44,12 @@ export const Footer = () => {
         rowGap={"2rem"}
       >
         <Stack rowGap={"0.8rem"}>
-          <FooterTitle>Support</FooterTitle>
-          <FooterLink>Adresse : 16 rue Marx Dormoy, 75018 Paris</FooterLink>
-          <FooterLink>E-mail : contact@clim75.fr</FooterLink>
-          <FooterLink>Téléphone : +33 7 53 21 95 58</FooterLink>
-          <FooterLink>N° SIRET : 978 450 054 R.C.S. Paris</FooterLink>
+          <FooterTitle>Coordonnées</FooterTitle>
+          <FooterLink>Zone : Toute la France</FooterLink>
+          <FooterLink>Région : Nouvelle-Aquitaine</FooterLink>
+          <FooterLink>Email : contact@DVLS.fr</FooterLink>
+          <FooterLink>Tél : +33 7 53 21 95 58</FooterLink>
+          <FooterLink>SIRET : 978 450 054 R.C.S. Paris</FooterLink>
         </Stack>
 
         <Stack rowGap={"0.8rem"}>
@@ -56,7 +57,7 @@ export const Footer = () => {
           <FooterLink onClick={() => navigate("/profile")}>
             Mon Compte
           </FooterLink>
-          {loggedInUser == undefined && (
+          {!loggedInUser && (
             <FooterLink onClick={() => navigate("/login")}>
               Connexion / Inscription
             </FooterLink>
@@ -64,7 +65,7 @@ export const Footer = () => {
         </Stack>
 
         <Stack rowGap={"0.8rem"}>
-          <FooterTitle>Liens rapides</FooterTitle>
+          <FooterTitle>Navigation</FooterTitle>
           <FooterLink onClick={() => navigate("/conditions")}>
             Conditions générales
           </FooterLink>
@@ -111,9 +112,12 @@ export const Footer = () => {
         </Stack>
       </Stack>
 
-      <Stack alignSelf={"center"}>
-        <Typography sx={{ fontSize: "0.9rem", color: "#C27B06" }}>
-          &copy; CLIM75 {new Date().getFullYear()}. Tous droits réservés
+      <Stack alignSelf={"center"} mt={3}>
+        <Typography sx={{ fontSize: "0.9rem", color: "#C27B06", textAlign: "center" }}>
+          « Avec DVLS, votre habitat respire l’efficacité »
+        </Typography>
+        <Typography sx={{ fontSize: "0.8rem", color: "#ffffff" }}>
+          &copy; DVLS {new Date().getFullYear()}. Tous droits réservés
         </Typography>
       </Stack>
     </StyledFooter>

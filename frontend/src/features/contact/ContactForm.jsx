@@ -24,15 +24,14 @@ export const ContactForm = () => {
   const is1100 = useMediaQuery(theme.breakpoints.down(1100));
   const is480 = useMediaQuery(theme.breakpoints.down(480));
 
-  // Function to handle form submission
   const onSubmit = async (data) => {
     try {
       const response = await axiosi.post("/messages/send", data);
 
       if (response.status === 201) {
         toast("Message envoyé avec succès !");
-        reset(); // Clear the form
-        navigate("/"); // Redirect if needed
+        reset();
+        navigate("/");
       }
     } catch (error) {
       console.error("Error sending message:", error);
@@ -54,20 +53,22 @@ export const ContactForm = () => {
         mb={6}
         component={"form"}
         noValidate
-        onSubmit={handleSubmit(onSubmit)} // Gestion de la soumission du formulaire
+        onSubmit={handleSubmit(onSubmit)}
       >
         {/* Informations de contact */}
         <Typography mt={2} textAlign="center">
           <h4>
-            Besoin d’un renseignement ou d’un devis ? Contactez-nous dès
-            maintenant :
+            Un projet de plomberie, chauffage, climatisation ou énergie
+            renouvelable ?
+            <br />
+            Contactez DVLS – votre expert national en confort thermique et énergétique.
           </h4>
           <br />
           📞 +33 7 53 21 95 58
           <br />
-          📍 16 rue Marx Dormoy, 75018 Paris
+          📍 Siège : Nouvelle-Aquitaine, interventions sur toute la France
           <br />
-          📧 contact@clim75.fr{" "}
+          📧 contact@DVLS.fr
         </Typography>
 
         <Stack rowGap={3}>
@@ -78,6 +79,8 @@ export const ContactForm = () => {
               </Typography>
               <TextField
                 {...register("name", { required: "Le prénom est requis" })}
+                error={!!errors.name}
+                helperText={errors.name?.message}
               />
             </Stack>
             <Stack flex={1}>
@@ -86,6 +89,8 @@ export const ContactForm = () => {
               </Typography>
               <TextField
                 {...register("lastName", { required: "Le nom est requis" })}
+                error={!!errors.lastName}
+                helperText={errors.lastName?.message}
               />
             </Stack>
           </Stack>
@@ -96,6 +101,8 @@ export const ContactForm = () => {
             </Typography>
             <TextField
               {...register("email", { required: "L'email est requis" })}
+              error={!!errors.email}
+              helperText={errors.email?.message}
             />
           </Stack>
 
@@ -107,6 +114,8 @@ export const ContactForm = () => {
               multiline
               rows={4}
               {...register("message", { required: "Le message est requis" })}
+              error={!!errors.message}
+              helperText={errors.message?.message}
             />
           </Stack>
         </Stack>
@@ -124,7 +133,7 @@ export const ContactForm = () => {
             sx={{
               backgroundColor: "#047d61",
               "&:hover": {
-                backgroundColor: "#12997B", // Changement de couleur au survol
+                backgroundColor: "#12997B",
               },
             }}
           >
@@ -134,13 +143,13 @@ export const ContactForm = () => {
             size={is480 ? "medium" : "large"}
             sx={{
               borderColor: "#047d61",
-              borderWidth: "1px", // Set the border width to 1px
-              borderStyle: "solid", // Ensure the border is solid
-              color: "#047d61", // Text color
-              backgroundColor: "white", // Background color
+              borderWidth: "1px",
+              borderStyle: "solid",
+              color: "#047d61",
+              backgroundColor: "white",
               "&:hover": {
-                borderColor: "#12997B", // Change border color on hover
-                color: "#12997B", // Change text color on hover
+                borderColor: "#12997B",
+                color: "#12997B",
               },
             }}
             component={Link}

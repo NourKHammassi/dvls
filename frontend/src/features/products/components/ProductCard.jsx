@@ -45,7 +45,7 @@ export const ProductCard = ({ id, title, description, thumbnail }) => {
         onClick={() => navigate(`/product-details/${id}`)}
       >
         <img
-          src={thumbnail.Location}
+          src={thumbnail?.Location}
           alt={title}
           style={{
             width: "100%", // Image fills the width of the container
@@ -95,9 +95,9 @@ export const ProductCard = ({ id, title, description, thumbnail }) => {
         <Button
           variant="contained"
           sx={{
-            backgroundColor: "#047d61",
+            backgroundColor: "#CE6868",
             "&:hover": {
-              backgroundColor: "#12997B", // Change color on hover
+              backgroundColor: "#B23F3F",
             },
             borderRadius: "20px", // Rounded corners
             padding: "8px 16px",

@@ -8,6 +8,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  useTheme,
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -15,88 +16,100 @@ import EmailIcon from "@mui/icons-material/Email";
 import BusinessIcon from "@mui/icons-material/Business";
 
 export const AboutBlock = () => {
+  const theme = useTheme();
+
   return (
-    <Container maxWidth="md" style={{ marginBottom: "40px" }}>
-      <Paper elevation={3} sx={{ p: 4, mt: 4, borderRadius: 2 }}>
-        <Typography variant="h4" gutterBottom>
+    <Container maxWidth="md" sx={{ mb: 6 }}>
+      <Paper
+        elevation={3}
+        sx={{
+          p: 4,
+          mt: 4,
+          borderRadius: 2,
+          backgroundColor: theme.palette.background.paper,
+        }}
+      >
+        <Typography
+          variant="h4"
+          gutterBottom
+          fontWeight={700}
+          color="#0F3F80"
+        >
           À propos de DVLS
         </Typography>
-        <Typography variant="body1" paragraph>
+
+        <Typography variant="body1" paragraph color={theme.palette.primary.main}>
           DVLS est une entreprise française spécialisée dans les travaux de plomberie, chauffage, climatisation,
           ventilation, électricité, isolation et énergies renouvelables.
         </Typography>
-        <Typography variant="body1" paragraph>
+
+        <Typography variant="body1" paragraph color={theme.palette.primary.main}>
           Depuis notre création, nous mettons tout en œuvre pour apporter à nos clients des solutions techniques
-          fiables, durables et parfaitement adaptées à leurs besoins. Implantée en Nouvelle-Aquitaine et active
-          sur l’ensemble du territoire national, DVLS intervient aussi bien pour des particuliers que pour des
-          professionnels, dans des contextes variés : construction neuve, rénovation, mise aux normes ou
-          optimisation énergétique.
+          fiables, durables et parfaitement adaptées à leurs besoins...
         </Typography>
-        <Typography variant="body1" paragraph>
+
+        <Typography variant="body1" paragraph color={theme.palette.primary.main}>
           Notre équipe est composée de techniciens qualifiés et passionnés, capables de prendre en charge
           l’intégralité d’un projet :
         </Typography>
+
         <List dense>
-          <ListItem>
-            <ListItemText primary="✔ Étude technique sur-mesure" />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary="✔ Conseil en choix d’équipements (performants et économes)" />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary="✔ Installation, mise en service et suivi après intervention" />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary="✔ Respect strict des normes de sécurité et d’efficacité énergétique" />
-          </ListItem>
+          {[
+            "✔ Étude technique sur-mesure",
+            "✔ Conseil en choix d’équipements (performants et économes)",
+            "✔ Installation, mise en service et suivi après intervention",
+            "✔ Respect strict des normes de sécurité et d’efficacité énergétique",
+          ].map((text, index) => (
+            <ListItem key={index}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
         </List>
-        <Typography variant="body1" paragraph sx={{ mt: 2 }}>
-          Nous croyons en une approche humaine, transparente et orientée satisfaction client. Pour chaque chantier,
-          nous veillons à assurer :
+
+        <Typography variant="body1" paragraph sx={{ mt: 2 }} color={theme.palette.primary.main}>
+          Nous croyons en une approche humaine, transparente et orientée satisfaction client...
         </Typography>
+
         <List dense>
-          <ListItem>
-            <ListItemText primary="• Des délais respectés" />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary="• Un travail soigné et conforme aux attentes" />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary="• Un accompagnement clair à chaque étape" />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary="• Un service après-vente réactif" />
-          </ListItem>
+          {[
+            "• Des délais respectés",
+            "• Un travail soigné et conforme aux attentes",
+            "• Un accompagnement clair à chaque étape",
+            "• Un service après-vente réactif",
+          ].map((text, index) => (
+            <ListItem key={index}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
         </List>
-        <Typography variant="body1" paragraph sx={{ mt: 2 }}>
-          Chez DVLS, nous ne faisons pas que poser du matériel : nous construisons votre confort au quotidien.
-          Notre ambition est simple : être un partenaire de confiance pour vos projets d’amélioration ou de
-          rénovation énergétique, partout en France.
+
+        <Typography variant="body1" paragraph sx={{ mt: 2 }} color={theme.palette.primary.main}>
+          Chez DVLS, nous ne faisons pas que poser du matériel : nous construisons votre confort au quotidien...
         </Typography>
 
         <Box mt={4}>
           <List>
             <ListItem>
               <ListItemIcon>
-                <LocationOnIcon color="primary" />
+                <LocationOnIcon sx={{ color: theme.palette.primary.dark }} />
               </ListItemIcon>
               <ListItemText primary="33 rue Dupuytren, 87620 Sereilhac" />
             </ListItem>
             <ListItem>
               <ListItemIcon>
-                <PhoneIcon color="primary" />
+                <PhoneIcon sx={{ color: theme.palette.primary.dark }} />
               </ListItemIcon>
               <ListItemText primary="+33 7 53 21 95 58" />
             </ListItem>
             <ListItem>
               <ListItemIcon>
-                <EmailIcon color="primary" />
+                <EmailIcon sx={{ color: theme.palette.primary.dark }} />
               </ListItemIcon>
               <ListItemText primary="contact@DVLS.fr" />
             </ListItem>
             <ListItem>
               <ListItemIcon>
-                <BusinessIcon color="primary" />
+                <BusinessIcon sx={{ color: theme.palette.primary.dark }} />
               </ListItemIcon>
               <ListItemText primary="SIRET : 978 450 054 R.C.S. Limoges" />
             </ListItem>

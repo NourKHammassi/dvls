@@ -36,7 +36,7 @@ export const ProductList = () => {
 
   return (
     <>
-      <Stack mb={"3rem"}>
+      <Stack >
         <Grid container spacing={3}>
           {products.map((product) => (
             <Grid item xs={12} sm={6} md={4} key={product._id}>
@@ -51,24 +51,7 @@ export const ProductList = () => {
           ))}
         </Grid>
 
-        {/* Pagination */}
-        <Stack alignSelf="flex-end" mr={5} rowGap={2} p={is500 ? 1 : 0}>
-          <Pagination
-            size={is500 ? "medium" : "large"}
-            page={page}
-            onChange={(e, page) => setPage(page)}
-            count={Math.ceil(totalResults / ITEMS_PER_PAGE)}
-            variant="outlined"
-            shape="rounded"
-          />
-          <Typography textAlign={"center"}>
-            Showing {(page - 1) * ITEMS_PER_PAGE + 1} to{" "}
-            {page * ITEMS_PER_PAGE > totalResults
-              ? totalResults
-              : page * ITEMS_PER_PAGE}{" "}
-            of {totalResults} results
-          </Typography>
-        </Stack>
+
       </Stack>
     </>
   );

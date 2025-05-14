@@ -223,187 +223,187 @@ export const ProductDetails = () => {
       {!(
         productFetchStatus === "rejected" && reviewFetchStatus === "rejected"
       ) && (
-        <Stack
-          sx={{
-            justifyContent: "center",
-            alignItems: "center",
-            mb: "2rem",
-            rowGap: "2rem",
-          }}
-        >
-          {(productFetchStatus || reviewFetchStatus) === "pending" ? (
-            <Stack
-              width={is480 ? "90vw" : "25rem"}
-              height={"calc(100vh - 4rem)"}
-              justifyContent={"center"}
-              alignItems={"center"}
-              padding={4}
-              borderRadius={2}
-            >
-              <Typography variant="h5" fontWeight={600} color="#0F3F80">
-                Veuillez patienter...
-              </Typography>
-              <Typography
-                variant="body2"
-                color="gray"
-                textAlign="center"
-                mt={1}
-              >
-                Chargement en cours, cela ne prendra que quelques instants.
-              </Typography>
-            </Stack>
-          ) : (
-            <Stack>
-              {/* détails du produit */}
+          <Stack
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              mb: "2rem",
+              rowGap: "2rem",
+            }}
+          >
+            {(productFetchStatus || reviewFetchStatus) === "pending" ? (
               <Stack
-                width={is480 ? "auto" : is1420 ? "auto" : "88rem"}
-                p={is480 ? 2 : 0}
-                height={is840 && "auto"}
-                rowGap={5}
-                mt={is840 ? 0 : 5}
+                width={is480 ? "90vw" : "25rem"}
+                height={"calc(100vh - 4rem)"}
                 justifyContent={"center"}
-                mb={5}
-                flexDirection={is840 ? "column" : "row"}
-                columnGap={is990 ? "2rem" : "5rem"}
+                alignItems={"center"}
+                padding={4}
+                borderRadius={2}
               >
-                {/* colonne gauche (images) */}
-                <Stack
-                  sx={{
-                    flexDirection: "row",
-                    columnGap: "2.5rem",
-                    alignSelf: "flex-start",
-                    height: "100%",
-                  }}
+                <Typography variant="h5" fontWeight={600} color="#0F3F80">
+                  Veuillez patienter...
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="gray"
+                  textAlign="center"
+                  mt={1}
                 >
-                  {/* image sélectionnée */}
-                  <Stack mt={is480 ? "0rem" : "5rem"}>
-                    <Stack width={is480 ? "100%" : is990 ? "400px" : "500px"}>
-                      <AutoPlaySwipeableViews
-                        width={"100%"}
-                        height={"100%"}
-                        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-                        index={activeStep}
-                        onChangeIndex={handleStepChange}
-                        enableMouseEvents
-                      >
-                        {product?.images.map((image, index) => {
-                          return (
-                            <div
-                              key={index}
-                              style={{ width: "100%", height: "100%" }}
-                            >
-                              {Math.abs(activeStep - index) <= 2 ? (
-                                <Box
-                                  component="img"
-                                  sx={{
-                                    width: "100%",
-                                    objectFit: "contain",
-                                    overflow: "hidden",
-                                    aspectRatio: 1 / 1,
-                                  }}
-                                  src={image.Location}
-                                  alt={product?.title}
-                                />
-                              ) : null}
-                            </div>
-                          );
-                        })}
-                      </AutoPlaySwipeableViews>
+                  Chargement en cours, cela ne prendra que quelques instants.
+                </Typography>
+              </Stack>
+            ) : (
+              <Stack>
+                {/* détails du produit */}
+                <Stack
+                  width={is480 ? "auto" : is1420 ? "auto" : "88rem"}
+                  p={is480 ? 2 : 0}
+                  height={is840 && "auto"}
+                  rowGap={5}
 
-                      <MobileStepper
-                        steps={maxSteps}
-                        position="static"
-                        activeStep={activeStep}
-                        nextButton={
-                          <Button
-                            size="small"
-                            onClick={handleNext}
-                            disabled={activeStep === maxSteps - 1}
-                          >
-                            Suivant
-                            {theme.direction === "rtl" ? (
-                              <KeyboardArrowLeft />
-                            ) : (
-                              <KeyboardArrowRight />
-                            )}
-                          </Button>
-                        }
-                        backButton={
-                          <Button
-                            size="small"
-                            onClick={handleBack}
-                            disabled={activeStep === 0}
-                          >
-                            {theme.direction === "rtl" ? (
-                              <KeyboardArrowRight />
-                            ) : (
-                              <KeyboardArrowLeft />
-                            )}
-                            Précédent
-                          </Button>
-                        }
-                      />
+                  justifyContent={"center"}
+                  mb={5}
+                  flexDirection={is840 ? "column" : "row"}
+                  columnGap={is990 ? "2rem" : "5rem"}
+                >
+                  {/* colonne gauche (images) */}
+                  <Stack
+                    sx={{
+                      flexDirection: "row",
+                      columnGap: "2.5rem",
+                      alignSelf: "flex-start",
+                      height: "100%",
+                    }}
+                  >
+                    {/* image sélectionnée */}
+                    <Stack >
+                      <Stack width={is480 ? "100%" : is990 ? "400px" : "500px"}>
+                        <AutoPlaySwipeableViews
+                          width={"100%"}
+                          height={"100%"}
+                          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+                          index={activeStep}
+                          onChangeIndex={handleStepChange}
+                          enableMouseEvents
+                        >
+                          {product?.images.map((image, index) => {
+                            return (
+                              <div
+                                key={index}
+                                style={{ width: "100%", height: "100%" }}
+                              >
+                                {Math.abs(activeStep - index) <= 2 ? (
+                                  <Box
+                                    component="img"
+                                    sx={{
+                                      width: "100%",
+                                      objectFit: "contain",
+                                      overflow: "hidden",
+                                      aspectRatio: 1 / 1,
+                                    }}
+                                    src={image.Location}
+                                    alt={product?.title}
+                                  />
+                                ) : null}
+                              </div>
+                            );
+                          })}
+                        </AutoPlaySwipeableViews>
+
+                        <MobileStepper
+                          steps={maxSteps}
+                          position="static"
+                          activeStep={activeStep}
+                          nextButton={
+                            <Button
+                              size="small"
+                              onClick={handleNext}
+                              disabled={activeStep === maxSteps - 1}
+                            >
+                              Suivant
+                              {theme.direction === "rtl" ? (
+                                <KeyboardArrowLeft />
+                              ) : (
+                                <KeyboardArrowRight />
+                              )}
+                            </Button>
+                          }
+                          backButton={
+                            <Button
+                              size="small"
+                              onClick={handleBack}
+                              disabled={activeStep === 0}
+                            >
+                              {theme.direction === "rtl" ? (
+                                <KeyboardArrowRight />
+                              ) : (
+                                <KeyboardArrowLeft />
+                              )}
+                              Précédent
+                            </Button>
+                          }
+                        />
+                      </Stack>
                     </Stack>
                   </Stack>
-                </Stack>
 
-                {/* colonne droite - à propos du produit */}
-                <Stack
-                  rowGap={"1.5rem"}
-                  width={is480 ? "100%" : "25rem"}
-                  style={{ marginTop: is480 ? "0rem" : "30vh" }}
-                >
-                  {/* titre, note et prix */}
-                  <Stack rowGap={".5rem"}>
-                    {/* titre */}
-                    <Typography variant="h4" fontWeight={600}>
-                      {product?.title}
-                    </Typography>
-                  </Stack>
+                  {/* colonne droite - à propos du produit */}
+                  <Stack
+                    rowGap={"1.5rem"}
+                    width={is480 ? "100%" : "25rem"}
+                    style={{ marginTop: is480 ? "0rem" : "10vh" }}
+                  >
+                    {/* titre, note et prix */}
+                    <Stack rowGap={".5rem"}>
+                      {/* titre */}
+                      <Typography variant="h4" fontWeight={600}>
+                        {product?.title}
+                      </Typography>
+                    </Stack>
 
-                  {/* description */}
-                  <Stack rowGap={".8rem"}>
-                    <Typography>{product?.description}</Typography>
-                    <hr />
-                  </Stack>
+                    {/* description */}
+                    <Stack rowGap={".8rem"}>
+                      <Typography>{product?.description}</Typography>
+                      <hr />
+                    </Stack>
 
-                  {/* couleur, taille et ajout au panier */}
-                  <Stack>
-                    {/* quantité et ajout au panier */}
-                    <Stack flexDirection={"row"} columnGap={"1rem"}>
-                      <Button
-                        variant="contained"
-                        sx={{
-                          backgroundColor: "#047d61",
-                          "&:hover": {
-                            backgroundColor: "#12997B", // Change color on hover
-                          },
-                          borderRadius: "20px", // Rounded corners
-                          padding: "8px 16px",
-                          textTransform: "none",
-                          width: "100%", // Full width for button
-                          marginTop: "auto", // Push button to the bottom
-                        }}
-                        onClick={() =>
-                          navigate("/demanderDevis", {
-                            state: {
-                              productId: product?.id,
-                              productTitle: product?.title,
+                    {/* couleur, taille et ajout au panier */}
+                    <Stack>
+                      {/* quantité et ajout au panier */}
+                      <Stack flexDirection={"row"} columnGap={"1rem"}>
+                        <Button
+                          variant="contained"
+                          sx={{
+                            backgroundColor: "#CE6868",
+                            "&:hover": {
+                              backgroundColor: "#B23F3F",
                             },
-                          })
-                        }
-                      >
-                        Demander un devis
-                        {/* //delander */}
-                      </Button>
+                            borderRadius: "20px", // Rounded corners
+                            padding: "8px 16px",
+                            textTransform: "none",
+                            width: "100%", // Full width for button
+                            marginTop: "auto", // Push button to the bottom
+                          }}
+                          onClick={() =>
+                            navigate("/demanderDevis", {
+                              state: {
+                                productId: product?.id,
+                                productTitle: product?.title,
+                              },
+                            })
+                          }
+                        >
+                          Demander un devis
+                          {/* //delander */}
+                        </Button>
+                      </Stack>
                     </Stack>
                   </Stack>
                 </Stack>
               </Stack>
-            </Stack>
-          )}
-        </Stack>
-      )}
+            )}
+          </Stack>
+        )}
     </>
   );
 };

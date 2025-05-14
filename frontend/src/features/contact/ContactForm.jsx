@@ -29,85 +29,103 @@ export const ContactForm = () => {
       const response = await axiosi.post("/messages/send", data);
 
       if (response.status === 201) {
-        toast("Message envoyé avec succès !");
+        toast.success("Message envoyé avec succès !");
         reset();
         navigate("/");
       }
     } catch (error) {
       console.error("Error sending message:", error);
-      toast("Échec de l'envoi du message");
+      toast.error("Échec de l'envoi du message");
     }
   };
 
   return (
     <Stack
-      p={"0 16px"}
-      justifyContent={"center"}
-      alignItems={"center"}
-      flexDirection={"row"}
+      px={2}
+      justifyContent="center"
+      alignItems="center"
+      sx={{ backgroundColor: "#f9f9f9", minHeight: "100vh" }}
     >
       <Stack
         width={is1100 ? "100%" : "60rem"}
-        rowGap={4}
+        spacing={4}
         mt={is480 ? 4 : 6}
         mb={6}
-        component={"form"}
+        component="form"
         noValidate
         onSubmit={handleSubmit(onSubmit)}
+        sx={{
+          backgroundColor: "#fff",
+          p: { xs: 3, sm: 5 },
+          borderRadius: 3,
+          boxShadow: 4,
+        }}
       >
-        {/* Informations de contact */}
-        <Typography mt={2} textAlign="center">
-          <h4>
-            Un projet de plomberie, chauffage, climatisation ou énergie
-            renouvelable ?
-            <br />
-            Contactez DVLS – votre expert national en confort thermique et énergétique.
-          </h4>
+        <Typography
+          variant="h4"
+          textAlign="center"
+          fontWeight={700}
+          color="#0F3F80" // #DB4444
+        >
+          Contactez-nous
+        </Typography>
+
+
+        <Typography
+          variant="body1"
+          textAlign="center"
+          sx={{ color: "#444", fontWeight: 400 }}
+        >
+          Un projet de plomberie, chauffage, climatisation ou énergie
+          renouvelable ?
           <br />
-          📞 +33 7 53 21 95 58
+          <b>DVLS</b> – votre expert national en confort thermique et énergétique.
           <br />
-          📍 Siège : Nouvelle-Aquitaine, interventions sur toute la France
+          📞 +33 7 53 21 95 58 &nbsp;|&nbsp; 📍 Nouvelle-Aquitaine, France
           <br />
           📧 contact@DVLS.fr
         </Typography>
 
-        <Stack rowGap={3}>
-          <Stack flexDirection={"row"}>
+        <Stack spacing={3}>
+          <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
             <Stack flex={1}>
-              <Typography variant="h6" fontWeight={400} gutterBottom>
+              <Typography variant="body1" fontWeight={500}>
                 Prénom
               </Typography>
               <TextField
                 {...register("name", { required: "Le prénom est requis" })}
                 error={!!errors.name}
                 helperText={errors.name?.message}
+                fullWidth
               />
             </Stack>
             <Stack flex={1}>
-              <Typography variant="h6" fontWeight={400} gutterBottom>
+              <Typography variant="body1" fontWeight={500}>
                 Nom
               </Typography>
               <TextField
                 {...register("lastName", { required: "Le nom est requis" })}
                 error={!!errors.lastName}
                 helperText={errors.lastName?.message}
+                fullWidth
               />
             </Stack>
           </Stack>
 
           <Stack>
-            <Typography variant="h6" fontWeight={400} gutterBottom>
+            <Typography variant="body1" fontWeight={500}>
               Email
             </Typography>
             <TextField
               {...register("email", { required: "L'email est requis" })}
               error={!!errors.email}
               helperText={errors.email?.message}
+              fullWidth
             />
           </Stack>
 
           <Stack>
-            <Typography variant="h6" fontWeight={400} gutterBottom>
+            <Typography variant="body1" fontWeight={500}>
               Message
             </Typography>
             <TextField
@@ -116,47 +134,45 @@ export const ContactForm = () => {
               {...register("message", { required: "Le message est requis" })}
               error={!!errors.message}
               helperText={errors.message?.message}
+              fullWidth
             />
           </Stack>
         </Stack>
 
-        {/* Boutons d'action */}
-        <Stack
-          flexDirection={"row"}
-          alignSelf={"flex-end"}
-          columnGap={is480 ? 1 : 2}
-        >
+        <Stack direction="row" justifyContent="flex-end" spacing={2}>
           <Button
-            size={is480 ? "medium" : "large"}
-            variant="contained"
             type="submit"
+            variant="contained"
+            size={is480 ? "medium" : "large"}
             sx={{
-              backgroundColor: "#047d61",
+              backgroundColor: theme.palette.primary.dark, // #DB4444
+              fontWeight: 600,
               "&:hover": {
-                backgroundColor: "#12997B",
+                backgroundColor: "#b63232", // une variante plus sombre si tu veux
               },
             }}
           >
             Envoyer
           </Button>
+
           <Button
+            component={Link}
+            to="/"
+            variant="outlined"
             size={is480 ? "medium" : "large"}
             sx={{
-              borderColor: "#047d61",
-              borderWidth: "1px",
-              borderStyle: "solid",
-              color: "#047d61",
-              backgroundColor: "white",
+              borderColor: theme.palette.primary.dark,
+              color: theme.palette.primary.dark,
+              fontWeight: 600,
               "&:hover": {
-                borderColor: "#12997B",
-                color: "#12997B",
+                borderColor: "#b63232",
+                color: "#b63232",
               },
             }}
-            component={Link}
-            to={"/"}
           >
             Annuler
           </Button>
+
         </Stack>
       </Stack>
     </Stack>

@@ -7,7 +7,14 @@ import {
 import { Navbar } from "../features/navigation/components/Navbar";
 import { ProductList } from "../features/products/components/ProductList";
 import { Footer } from "../features/footer/Footer";
-import { Typography, Container, Stack, Box } from "@mui/material";
+import {
+  Typography,
+  Container,
+  Stack,
+  Box,
+  Paper,
+  Divider,
+} from "@mui/material";
 
 export const HomePage = () => {
   const dispatch = useDispatch();
@@ -37,112 +44,168 @@ export const HomePage = () => {
   return (
     <>
       <Navbar isProductList={true} />
-      <Container
+
+      {/* Hero section */}
+      <Box
         sx={{
-          marginBottom: 4,
-          marginTop: 6,
-          padding: 4,
-          borderRadius: 3,
+          background: "linear-gradient(to right, #0F3F80, #CE6868)",
+          py: 6,
+          px: 2,
+          color: "#fff",
+          textAlign: "center",
         }}
       >
-        {/* Titre principal et slogan */}
         <Typography
           variant="h3"
-          align="center"
-          gutterBottom
-          sx={{ color: "#0F3F80", fontWeight: "bold" }}
+          sx={{ fontWeight: 800, mb: 2, fontFamily: "'Poppins', sans-serif" }}
         >
           Bienvenue chez DVLS
         </Typography>
         <Typography
           variant="h6"
-          align="center"
-          paragraph
-          sx={{ color: "#424242", fontStyle: "italic" }}
+          sx={{
+            fontStyle: "italic",
+            color: "#FDD49A",
+          }}
         >
           « Avec DVLS, votre habitat respire l’efficacité »
         </Typography>
+      </Box>
 
-        {/* Présentation */}
-        <Typography variant="body1" paragraph>
-          Basée en Nouvelle-Aquitaine, l’entreprise DVLS intervient partout en
-          France pour vous proposer des prestations professionnelles dans les
-          domaines de la plomberie, du chauffage, de la ventilation, de la
-          climatisation, de l’électricité, de l’isolation et des énergies
-          renouvelables.
-        </Typography>
-        <Typography variant="body1" paragraph>
-          Que vous soyez particulier ou professionnel, notre équipe vous
-          accompagne dans tous vos projets, en neuf comme en rénovation, avec
-          des solutions fiables, modernes et durables.
-        </Typography>
-
-        {/* Engagements */}
-        <Stack spacing={2} sx={{ mt: 4 }}>
-          <Typography
-            variant="h4"
-            gutterBottom
-            sx={{ color: "#0F3F80", fontWeight: "bold" }}
-          >
-            ✅ Nos engagements
-          </Typography>
-          <Stack spacing={1} sx={{ paddingLeft: 2 }}>
-            {engagements.map((item, idx) => (
-              <Typography key={idx} sx={{ fontSize: "1.1rem", color: "#424242" }}>
-                - {item}
-              </Typography>
-            ))}
-          </Stack>
-        </Stack>
-
-        {/* Domaines d'expertise */}
-        <Stack spacing={2} sx={{ mt: 4 }}>
-          <Typography
-            variant="h4"
-            gutterBottom
-            sx={{ color: "#0F3F80", fontWeight: "bold" }}
-          >
-            🛠️ Nos domaines d’expertise
-          </Typography>
-          <Stack spacing={1} sx={{ paddingLeft: 2 }}>
-            {expertises.map((item, idx) => (
-              <Typography key={idx} sx={{ fontSize: "1.1rem", color: "#424242" }}>
-                - {item}
-              </Typography>
-            ))}
-          </Stack>
-        </Stack>
-
-        {/* Produits / Services (ProductList) */}
-        <Stack spacing={4} sx={{ mt: 4 }}>
-          <Typography
-            variant="h4"
-            gutterBottom
-            sx={{ color: "#0F3F80", fontWeight: "bold" }}
-          >
-            🛎️ Nos Services
+      {/* Présentation */}
+      <Container sx={{ py: 5 }}>
+        <Stack spacing={3}>
+          <Typography variant="body1">
+            Basée en Nouvelle-Aquitaine, DVLS intervient partout en France pour
+            vous proposer des prestations professionnelles dans les domaines de
+            la plomberie, du chauffage, de la ventilation, de la climatisation,
+            de l’électricité, de l’isolation et des énergies renouvelables.
           </Typography>
           <Typography variant="body1">
-            Chez DVLS, nous vous proposons une large gamme de prestations techniques dans les domaines du bâtiment et de la performance énergétique. Nous intervenons partout en France, auprès des particuliers comme des professionnels, pour des installations, des dépannages ou des rénovations complètes.
+            Que vous soyez particulier ou professionnel, notre équipe vous
+            accompagne dans tous vos projets avec des solutions modernes et
+            durables.
           </Typography>
-          <ProductList />
         </Stack>
+      </Container>
 
+      {/* Engagements */}
+      <Box sx={{ backgroundColor: "#F4F4F4", py: 6 }}>
+        <Container>
+          <Typography
+            variant="h4"
+            sx={{
+              color: "black",
+              fontWeight: "bold",
+              mb: 3,
+              textAlign: "center",
+            }}
+          >
+            Nos engagements
+          </Typography>
+          <Stack spacing={2}>
+            {engagements.map((text, idx) => (
+              <Paper
+                key={idx}
+                elevation={3}
+                sx={{
+                  p: 2,
+                  borderLeft: "6px solid #C24E06",
+                  backgroundColor: "#ffffff",
+                }}
+              >
+                <Typography sx={{ color: "#424242", fontSize: "1.05rem" }}>
+                  {text}
+                </Typography>
+              </Paper>
+            ))}
+          </Stack>
+        </Container>
+      </Box>
 
-        {/* Zone d’intervention */}
-        <Box mt={4}>
+      {/* Expertises */}
+      <Box sx={{ backgroundColor: "#C6C6C6", py: 6 }}>
+        <Container>
+          <Typography
+            variant="h4"
+            sx={{
+              color: "black",
+              fontWeight: "bold",
+              mb: 3,
+              textAlign: "center",
+            }}
+          >
+            Nos domaines d’expertise
+          </Typography>
+          <Stack spacing={2}>
+            {expertises.map((text, idx) => (
+              <Paper
+                key={idx}
+                elevation={2}
+                sx={{
+                  p: 2,
+                  backgroundColor: "#fff",
+                  borderRadius: 2,
+                }}
+              >
+                <Typography sx={{ color: "#333", fontSize: "1.05rem" }}>
+                  {text}
+                </Typography>
+              </Paper>
+            ))}
+          </Stack>
+        </Container>
+      </Box>
+
+      {/* Produits / Services */}
+      <Box sx={{ py: 6, backgroundColor: "#fefefe" }}>
+        <Container>
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: "bold",
+              mb: 2,
+              color: "black",
+              textAlign: "center",
+            }}
+          >
+            Nos Services
+          </Typography>
           <Typography
             variant="body1"
-            sx={{ fontWeight: "bold", color: "#0F3F80" }}
+            sx={{ textAlign: "center", mb: 4, maxWidth: "800px", mx: "auto" }}
           >
-            📍 Zone d’intervention : Toute la France
+            Chez DVLS, nous proposons une large gamme de prestations techniques
+            dans les domaines du bâtiment et de la performance énergétique.
+            Partout en France, nous accompagnons particuliers et professionnels
+            pour des installations, des dépannages ou des rénovations.
           </Typography>
-          <Typography variant="body1">
-            📞 Une question, un besoin, un chantier ? Contactez DVLS pour un
-            devis clair, rapide et gratuit.
-          </Typography>
-        </Box>
-      </Container>
+          <ProductList />
+        </Container>
+      </Box>
+
+      {/* Zone d’intervention */}
+      <Box
+        sx={{
+          py: 5,
+          px: 2,
+          backgroundColor: "#0F3F80",
+          color: "#fff",
+          textAlign: "center",
+        }}
+      >
+        <Typography
+          variant="body1"
+          sx={{ fontWeight: "bold", mb: 1, color: "#fff" }}
+        >
+          📍 Zone d’intervention : Toute la France
+        </Typography>
+        <Typography variant="body1">
+          📞 Une question, un besoin, un chantier ? Contactez DVLS pour un devis
+          clair, rapide et gratuit.
+        </Typography>
+      </Box>
+
       <Footer />
     </>
   );

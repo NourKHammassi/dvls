@@ -1,17 +1,20 @@
 import {
   Box,
+  Button,
   FormHelperText,
   Stack,
   TextField,
   Typography,
   useMediaQuery,
   useTheme,
-  Button,
 } from "@mui/material";
 import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { motion } from "framer-motion";
+
 import {
   selectLoggedInUser,
   signupAsync,
@@ -20,42 +23,36 @@ import {
   clearSignupError,
   resetSignupStatus,
 } from "../AuthSlice";
-import { toast } from "react-toastify";
-import { motion } from "framer-motion";
-import { login } from "../../../assets";
 
 export const Signup = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const status = useSelector(selectSignupStatus);
   const error = useSelector(selectSignupError);
-  const loggedInUser = useSelector(selectLoggedInUser);
+  const user = useSelector(selectLoggedInUser);
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate();
-  const theme = useTheme();
-  const is600 = useMediaQuery(theme.breakpoints.down(600));
 
   useEffect(() => {
-    if (loggedInUser && !loggedInUser?.isVerified) {
-      navigate("/verify-otp");
-    } else if (loggedInUser) {
-      navigate("/");
-    }
-  }, [loggedInUser]);
+    if (user?.isVerified) navigate("/");
+    else if (user) navigate("/verify-otp");
+  }, [user]);
 
   useEffect(() => {
-    if (error) {
-      toast.error(error.message);
-    }
+    if (error) toast.error(error.message);
   }, [error]);
 
   useEffect(() => {
     if (status === "fullfilled") {
-      toast.success("Bienvenue ! Vérifiez votre e-mail!");
+      toast.success("Bienvenue ! Vérifiez votre e-mail !");
       reset();
     }
     return () => {
@@ -64,121 +61,108 @@ export const Signup = () => {
     };
   }, [status]);
 
-  const handleSignup = (data) => {
-    const cred = { ...data };
-    delete cred.confirmPassword;
-    dispatch(signupAsync(cred));
+  const onSubmit = (data) => {
+    const { confirmPassword, ...credentials } = data;
+    dispatch(signupAsync(credentials));
   };
 
   return (
     <Stack
-      width={"100vw"}
-      height={"100vh"}
-      flexDirection={"row"}
-      alignItems={"center"}
-      justifyContent={"center"}
-      sx={{ backgroundColor: "#f5f5f5" }}
+      direction="row"
+      alignItems="center"
+      justifyContent="center"
+      height="100vh"
+      sx={{
+        background: "linear-gradient(to bottom left, #C6C6C6 50%, #f5f5f5 50%)",
+        px: 2,
+      }}
     >
-      {!is600 && (
-        <Box
-          flex={1}
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
-          <img
-            style={{ width: "50%", height: "50%", borderRadius: "50%" }}
-            src={login}
-          />
-        </Box>
-      )}
+
 
       <Stack
-        flex={1}
-        spacing={3}
-        maxWidth={400}
-        padding={4}
-        borderRadius={2}
+        spacing={4}
+        maxWidth={700}
+        width="100%"
+        p={isMobile ? 3 : 6}
+        borderRadius={3}
         sx={{
-          backgroundColor: "white",
-          boxShadow: "2px 2px 10px rgba(0,0,0,0.1)",
-          marginRight: "100px",
+          backgroundColor: "#9A9898",
+          boxShadow: 4,
+          transition: "0.3s",
+          "& .MuiTypography-root, & .MuiFormHelperText-root, & .MuiInputLabel-root": {
+            color: "#fff",
+          },
+          "& .MuiOutlinedInput-root": {
+            backgroundColor: "#f5f5f5",
+            "& fieldset": { borderColor: "#fff" },
+            "&:hover fieldset": { borderColor: "#fff" },
+          },
         }}
       >
-        <Typography
-          variant="h4"
-          fontWeight={600}
-          color="#0F3F80"
-          textAlign="center"
-        >
+        <Typography variant="h4" fontWeight={600} textAlign="center" color="#0F3F80">
           Inscription
         </Typography>
 
-        <Stack
-          spacing={2}
-          component="form"
-          noValidate
-          onSubmit={handleSubmit(handleSignup)}
-        >
+        <Stack component="form" onSubmit={handleSubmit(onSubmit)} spacing={3} noValidate>
           <TextField
             fullWidth
-            {...register("name", { required: "Nom d'utilisateur requis" })}
             placeholder="Nom d'utilisateur"
+            {...register("name", { required: "Nom d'utilisateur requis" })}
           />
-          {errors.name && (
-            <FormHelperText error>{errors.name.message}</FormHelperText>
-          )}
+          {errors.name && <FormHelperText error>{errors.name.message}</FormHelperText>}
 
           <TextField
             fullWidth
+            placeholder="Email"
             {...register("email", {
               required: "Email requis",
-              pattern: { value: /.+@.+\..+/, message: "Email invalide" },
+              pattern: {
+                value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
+                message: "Veuillez entrer un email valide",
+              },
             })}
-            placeholder="Email"
           />
-          {errors.email && (
-            <FormHelperText error>{errors.email.message}</FormHelperText>
-          )}
+          {errors.email && <FormHelperText error>{errors.email.message}</FormHelperText>}
 
           <TextField
             type="password"
             fullWidth
-            {...register("password", { required: "Mot de passe requis" })}
             placeholder="Mot de passe"
+            {...register("password", { required: "Mot de passe requis" })}
           />
-          {errors.password && (
-            <FormHelperText error>{errors.password.message}</FormHelperText>
-          )}
+          {errors.password && <FormHelperText error>{errors.password.message}</FormHelperText>}
 
           <TextField
             type="password"
             fullWidth
+            placeholder="Confirmer le mot de passe"
             {...register("confirmPassword", {
               required: "Confirmation requise",
-              validate: (value, fromValues) =>
-                value === fromValues.password ||
-                "Les mots de passe ne correspondent pas",
+              validate: (value, allValues) =>
+                value === allValues.password || "Les mots de passe ne correspondent pas",
             })}
-            placeholder="Confirmer le mot de passe"
           />
           {errors.confirmPassword && (
-            <FormHelperText error>
-              {errors.confirmPassword.message}
-            </FormHelperText>
+            <FormHelperText error>{errors.confirmPassword.message}</FormHelperText>
           )}
 
-          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 1 }}>
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Button
-              fullWidth
               type="submit"
+              fullWidth
               variant="contained"
-              sx={{
-                backgroundColor: "#047d61",
-                color: "white",
-                fontWeight: 600,
-              }}
               disabled={status === "pending"}
+              sx={{
+                backgroundColor: "#CE6868",
+                color: "#fff",
+                fontWeight: 600,
+                borderRadius: 3,
+                py: 1.5,
+                fontSize: "1rem",
+                "&:hover": {
+                  backgroundColor: "#B23F3F",
+                },
+              }}
             >
               S'inscrire
             </Button>
@@ -190,9 +174,10 @@ export const Signup = () => {
             component={Link}
             to="/login"
             sx={{
-              textDecoration: "none",
               color: "#0F3F80",
+              textDecoration: "none",
               fontSize: "0.9rem",
+              fontWeight: 500,
             }}
           >
             Déjà membre ? <b>Connexion</b>

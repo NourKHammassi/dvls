@@ -51,7 +51,7 @@ export const HomePage = () => {
           background: "linear-gradient(to right, #0F3F80, #CE6868)",
           py: 6,
           px: 2,
-          color: "#fff",
+          color: "black",
           textAlign: "center",
         }}
       >
@@ -65,7 +65,7 @@ export const HomePage = () => {
           variant="h6"
           sx={{
             fontStyle: "italic",
-            color: "#FDD49A",
+            color: "black",
           }}
         >
           « Avec DVLS, votre habitat respire l’efficacité »

@@ -17,7 +17,7 @@ const StyledFooter = styled(Stack)(({ theme }) => ({
 const FooterTitle = styled(Typography)({
   fontSize: "1.1rem",
   fontWeight: "bold",
-  color: "#0F3F80",
+  color: "black",
 });
 
 const FooterLink = styled(Typography)({
@@ -98,7 +98,7 @@ export const Footer = () => {
         <Typography sx={{ fontSize: "0.9rem", color: "#C24E06", textAlign: "center" }}>
           « Avec DVLS, votre habitat respire l’efficacité »
         </Typography>
-        <Typography sx={{ fontSize: "0.8rem", color: "#0F3F80", textAlign: "center" }}>
+        <Typography sx={{ fontSize: "0.8rem", color: "black", textAlign: "center" }}>
           &copy; DVLS {new Date().getFullYear()}. Tous droits réservés
         </Typography>
       </Stack>

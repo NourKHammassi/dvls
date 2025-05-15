@@ -299,7 +299,8 @@ export const ProductDetails = () => {
                                       width: "100%",
                                       objectFit: "contain",
                                       overflow: "hidden",
-                                      aspectRatio: 1 / 1,
+                                      // aspectRatio: 1 / 1,
+                                      marginTop: "15%"
                                     }}
                                     src={image.Location}
                                     alt={product?.title}
@@ -314,13 +315,14 @@ export const ProductDetails = () => {
                           steps={maxSteps}
                           position="static"
                           activeStep={activeStep}
+                          style={{ marginTop: "1.5rem" }}
                           nextButton={
                             <Button
                               size="small"
                               onClick={handleNext}
                               disabled={activeStep === maxSteps - 1}
                             >
-                              Suivant
+                              -
                               {theme.direction === "rtl" ? (
                                 <KeyboardArrowLeft />
                               ) : (
@@ -339,7 +341,7 @@ export const ProductDetails = () => {
                               ) : (
                                 <KeyboardArrowLeft />
                               )}
-                              Précédent
+                              -
                             </Button>
                           }
                         />
@@ -350,11 +352,11 @@ export const ProductDetails = () => {
                   {/* colonne droite - à propos du produit */}
                   <Stack
                     rowGap={"1.5rem"}
-                    width={is480 ? "100%" : "25rem"}
                     style={{ marginTop: is480 ? "0rem" : "10vh" }}
+                  // width={is480 ? "100%" : is990 ? "400px" : "500px"}
                   >
                     {/* titre, note et prix */}
-                    <Stack rowGap={".5rem"}>
+                    <Stack style={{ marginTop: "1.5%" }}>
                       {/* titre */}
                       <Typography variant="h4" fontWeight={600}>
                         {product?.title}
@@ -362,22 +364,18 @@ export const ProductDetails = () => {
                     </Stack>
 
                     {/* description */}
-                    <Stack rowGap={".8rem"}>
+                    <Stack style={{ marginTop: "3%" }}>
                       <Typography>{product?.description}</Typography>
-                      <hr />
                     </Stack>
 
                     {/* couleur, taille et ajout au panier */}
-                    <Stack>
+                    <Stack style={{ marginTop: "3%" }}>
                       {/* quantité et ajout au panier */}
                       <Stack flexDirection={"row"} columnGap={"1rem"}>
                         <Button
                           variant="contained"
                           sx={{
-                            backgroundColor: "#CE6868",
-                            "&:hover": {
-                              backgroundColor: "#B23F3F",
-                            },
+                            background: "linear-gradient(90deg, #FF512F, #DD2476)",
                             borderRadius: "20px", // Rounded corners
                             padding: "8px 16px",
                             textTransform: "none",

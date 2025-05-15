@@ -1,6 +1,7 @@
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import {
-  Button,
-  Grid,
   Stack,
   Typography,
   useMediaQuery,
@@ -16,17 +17,16 @@ import {
 } from "../ProductSlice";
 import { ProductCard } from "./ProductCard";
 import { ITEMS_PER_PAGE } from "../../../constants";
+import Slider from "react-slick";
 
 export const ProductList = () => {
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState(null);
   const theme = useTheme();
-
-  const is500 = useMediaQuery(theme.breakpoints.down(500));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const products = useSelector(selectProducts);
   const totalResults = useSelector(selectProductTotalResults);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,25 +34,53 @@ export const ProductList = () => {
     dispatch(fetchProductsAsync(filters));
   }, [page, sort]);
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: isMobile ? 1 : 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    responsive: [
+      {
+        breakpoint: 960,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
+
   return (
-    <>
-      <Stack >
-        <Grid container spacing={3}>
-          {products.map((product) => (
-            <Grid item xs={12} sm={6} md={4} key={product._id}>
-              <ProductCard
-                id={product._id}
-                title={product.title}
-                description={product.description}
-                thumbnail={product.thumbnail}
-                layout="column" // Affichage en colonne
-              />
-            </Grid>
-          ))}
-        </Grid>
+    <Stack spacing={2}>
+      <Slider {...settings}>
+        {products.map((product) => (
+          <div
+            key={product._id}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              padding: "0 10px",
+            }}
+          >
+            <ProductCard
+              id={product._id}
+              title={product.title}
+              description={product.description}
+              thumbnail={product.thumbnail}
+              layout="column"
+            />
+          </div>
 
-
-      </Stack>
-    </>
+        ))}
+      </Slider>
+    </Stack>
   );
 };
